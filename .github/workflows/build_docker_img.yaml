@@ -9,6 +9,8 @@ jobs:
 
           permissions:
               packages: write
+              contents: read
+              security-events: write
 
           env:
               TAG: pythonapi
@@ -42,7 +44,7 @@ jobs:
                 severity: 'CRITCAL,HIGH'
 
             - name: upload scanned image to GH security
-              uses: github/codeql-action/upload-sarif@v2
+              uses: github/codeql-action/upload-sarif@v3
               with:
                 sarif_file: trivy-image-result.sarif
                 category: image
