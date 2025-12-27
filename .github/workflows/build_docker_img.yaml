@@ -20,7 +20,8 @@ jobs:
               uses: actions/checkout@v6.0.1
 
             - name: build docker image
-              run: docker build -t $TAG .
+              run: docker build -t ${{ env.REGISTRY }}/$USER/$TAG:${{ env.VERSION }} .
+
 
             - name: login to ghCR
               run: | 
@@ -28,20 +29,20 @@ jobs:
                 docker tag $TAG ${{ env.REGISTRY }}/$USER/$TAG:${{ env.VERSION }}
                 docker push ${{ env.REGISTRY }}/$USER/$TAG:${{ env.VERSION }}
 
-            - name: img scan
+            - name: image scanning
               uses: aquasecurity/trivy-action@0.27.0
               with: 
-                image-ref: '${{ env.REGISTRY }}/$USER/$TAG:${{ env.VERSION }}'
+                image-ref: ${{ env.REGISTRY }}/$USER/$TAG:${{ env.VERSION }}
                 security-checks: 'vuln,secret,config'
                 format: 'sarif'
                 output: 'trivy-image-result.sarif'
                 severity: 'CRITCAL,HIGH'
 
             - name: upload scanned image to GH security
-              uses: github/codeql-action/upload-sarifv2@v2
+              uses: github/codeql-action/upload-sarif@v2
               with:
-                sarif_file: 'trivy-image-result.sarif'
-                category: 'image'
+                sarif_file: trivy-image-result.sarif
+                category: image
                 
             
 
