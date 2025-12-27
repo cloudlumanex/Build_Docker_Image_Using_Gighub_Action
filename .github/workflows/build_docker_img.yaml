@@ -20,13 +20,13 @@ jobs:
               uses: actions/checkout@v6.0.1
 
             - name: build docker image
-              run:  docker build -t ${{ env.REGISTRY }}/$USER/$TAG:${{ env.VERSION }} .
+              run:  docker build -t $TAG .
 
 
             - name: login to ghCR
               run: | 
                 echo ${{ env.PAT }} | docker login ${{ env.REGISTRY }} -u ${{ env.USER }} --password-stdin
-                docker tag ${{ env.TAG }}:${{ env.VERSION }} ${{ env.REGISTRY }}/${{ env.USER }}/${{ env.TAG }}:${{ env.VERSION }}
+                docker tag $TAG ${{ env.REGISTRY }}/$USER/$TAG:${{ env.VERSION }}
                 docker push ${{ env.REGISTRY }}/${{ env.USER }}/${{ env.TAG }}:${{ env.VERSION }}
 
             - name: image scanning
