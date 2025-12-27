@@ -26,7 +26,7 @@ jobs:
             - name: login to ghCR
               run: | 
                 echo ${{ env.PAT }} | docker login ${{ env.REGISTRY }} -u ${{ env.USER }} --password-stdin
-                docker tag $TAG ${{ env.REGISTRY }}/$USER/$TAG:${{ env.VERSION }}
+                #docker tag $TAG ${{ env.REGISTRY }}/$USER/$TAG:${{ env.VERSION }}
                 docker push ${{ env.REGISTRY }}/$USER/$TAG:${{ env.VERSION }}
 
             - name: image scanning
