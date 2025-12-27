@@ -35,7 +35,7 @@ jobs:
             - name: image scanning
               uses: aquasecurity/trivy-action@0.27.0
               with: 
-                image-ref: ${{ env.REGISTRY }}/$USER/$TAG:${{ env.VERSION }}
+                image-ref: ${{ env.REGISTRY }}/${{ env.USER }}/${{ env.TAG }}:${{ env.VERSION }}
                 security-checks: 'vuln,secret,config'
                 format: 'sarif'
                 output: 'trivy-image-result.sarif'
