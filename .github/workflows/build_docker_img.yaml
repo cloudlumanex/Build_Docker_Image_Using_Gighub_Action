@@ -7,6 +7,9 @@ jobs:
           name: build_docker_image
           runs-on: ubuntu-latest
 
+          permissions:
+              packages: write
+
           env:
               TAG: pythonapi
               PAT: ${{ secrets.GITHUB_TOKEN }}
