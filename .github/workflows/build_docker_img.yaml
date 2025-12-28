@@ -2,15 +2,17 @@ name: build docker image
 
 on: push
 
+permissions:
+              packages: write
+              contents: read
+              security-events: write
+
 jobs:
     build_docker_image:
           name: build_docker_image
           runs-on: ubuntu-latest
 
-          permissions:
-              packages: write
-              contents: read
-              security-events: write
+          
 
           env:
               TAG: pythonapi
