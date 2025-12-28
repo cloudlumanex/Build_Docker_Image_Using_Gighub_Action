@@ -41,7 +41,7 @@ jobs:
                 security-checks: 'vuln,secret,config'
                 format: 'sarif'
                 output: 'trivy-image-result.sarif'
-                severity: 'CRITCAL,HIGH'
+                severity: 'CRITICAL,HIGH'
 
             - name: upload scanned image to GH security
               uses: github/codeql-action/upload-sarif@v3
